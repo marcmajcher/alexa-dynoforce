@@ -42,7 +42,7 @@ const handlers = {
     const gentype = this.event.request.intent.slots.NameType.value;
 
     if (gentype && generators[gentype]) {
-      const speechOutput = `Your ${gentype} name is: ${generators[gentype]()}`;
+      const speechOutput = `Your ${gentype.replace(/\s*name/, '')} name is: ${generators[gentype]()}`;
       this.emit(':tellWithCard', speechOutput, SKILL_NAME, speechOutput);
     }
     else {
