@@ -14,9 +14,19 @@ const STOP_MESSAGE = 'Good bye, and good hunting.';
 // const NOT_FOUND_REPROMPT = 'Would you like me to give you ...?';
 
 const generators = {
+  name: namegen.pilotName,
   pilot: namegen.pilotName,
+  'pilot name': namegen.pilotName,
   mech: namegen.mechName,
-  kaiju: namegen.kaijuName
+  'mech name': namegen.mechName,
+  mecha: namegen.mechName,
+  'mecha name': namegen.mechName,
+  jager: namegen.mechName,
+  'jager name': namegen.mechName,
+  kaiju: namegen.kaijuName,
+  'kauju name': namegen.kaijuName,
+  monster: namegen.kaijuName,
+  'monster name': namegen.kaijuName
 };
 
 const handlers = {
@@ -27,7 +37,9 @@ const handlers = {
     this.emit(':tell', STOP_MESSAGE);
   },
   GeneratorIntent() {
-    const gentype = this.event.request.intent.slots.NameType;
+    console.log('=====INTENT=====');
+    console.log(this.event.request.intent);
+    const gentype = this.event.request.intent.slots.NameType.value;
 
     if (gentype && generators[gentype]) {
       const speechOutput = `Your ${gentype} name is: ${generators[gentype]()}`;
