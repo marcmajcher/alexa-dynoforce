@@ -24,7 +24,7 @@ const generators = {
   jager: namegen.mechName,
   'jager name': namegen.mechName,
   kaiju: namegen.kaijuName,
-  'kauju name': namegen.kaijuName,
+  'kaiju name': namegen.kaijuName,
   monster: namegen.kaijuName,
   'monster name': namegen.kaijuName
 };
