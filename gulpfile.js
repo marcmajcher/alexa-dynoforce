@@ -43,7 +43,7 @@ gulp.task('eslint', () =>
 
 gulp.task('build', () =>
   gulp.src('src/**/*')
-  .pipe(zip('AlexaTIAIC.zip'))
+  .pipe(zip('AlexaDF.zip'))
   .pipe(gulp.dest('dist'))
 );
 

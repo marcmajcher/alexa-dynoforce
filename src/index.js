@@ -3,14 +3,21 @@
 /* eslint-env node */
 
 const Alexa = require('alexa-sdk');
+const namegen = require('./dynonames');
 
-const APP_ID = 'DnynoForce Generator'; // TODO replace with your app ID (OPTIONAL).
+const APP_ID = 'amzn1.ask.skill.4a1d43df-1aae-47c2-b8eb-7714c58db730';
 const SKILL_NAME = 'DynoForce Name Generator';
 const HELP_MESSAGE = 'You can ask me for a mech name, a pilot name, or a kaiju name. What can I do for you?';
 const HELP_REPROMPT = 'Would you like me to give you a mech name, a pilot name, or a kaiju name?';
 const STOP_MESSAGE = 'Good bye, and good hunting.';
 // const NOT_FOUND_MESSAGE = 'I don\'t know how to do that. Please ask for...';
 // const NOT_FOUND_REPROMPT = 'Would you like me to give you ...?';
+
+const generators = {
+  pilot: namegen.pilotName,
+  mech: namegen.mechName,
+  kaiju: namegen.kaijuName
+};
 
 const handlers = {
   LaunchRequest: function LaunchRequest() {
@@ -19,9 +26,11 @@ const handlers = {
   SessionEndedRequest: function SessionEndedRequest() {
     this.emit(':tell', STOP_MESSAGE);
   },
-  SAMPLEIntent: function SAMPLEIntent() {
-    if (true) {
-      const speechOutput = 'Test';
+  GeneratorIntent() {
+    const gentype = this.event.request.intent.slots.NameType;
+
+    if (gentype && generators[gentype]) {
+      const speechOutput = `Your ${gentype} name is: ${generators[gentype]()}`;
       this.emit(':tellWithCard', speechOutput, SKILL_NAME, speechOutput);
     }
     else {
